@@ -38,9 +38,8 @@ def download_image(image_url: str) -> BytesIO:
 
 @app.post("/predict/")
 def predict_image(image_url: str):
-    image_path = download_image(image_url)
-    print(image_path)
-    img = image.load_img(image_path, target_size=(224, 224))
+    image_bytesio = download_image(image_url)
+    img = image.load_img(image_bytesio, target_size=(224, 224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x)  # Preprocess the image
